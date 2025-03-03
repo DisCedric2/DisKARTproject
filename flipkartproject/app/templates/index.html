@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %}
-<title>{% block title %}FlipKart|Index{% endblock %}</title>
+<title>{% block title %}DisKART|Index{% endblock %}</title>
 <body>
   {% block body %} 
   <div class="container-fluid">
@@ -135,8 +135,8 @@
                 <h5 class="card-title">{{x.productname}}</h5>
                 <p class="card-text">{{x.description}}</p>
                 <p class="card-text">Price:{{x.price}}/-</p>
-                <a href="#" class="btn btn-primary">Add to Cart</a>
-                <a href="#" class="btn btn-danger">Buy Now</a>
+                <a href="/addtocart/{{x.productid}}" class="btn btn-primary">Add to Cart</a>
+                <a href="/showcarts/" class="btn btn-danger">Buy Now</a>
               </div>
             </div>
           </div>
