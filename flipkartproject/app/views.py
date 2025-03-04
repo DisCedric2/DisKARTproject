@@ -279,11 +279,15 @@ def searchproduct(req):
 def showcarts(req):
     username = req.user
     allcarts = Cart.objects.filter(userid=username.id)
+    print(allcarts, len(allcarts))
+    totalitems = len(allcarts)
+    totalamount = 0
+    for x in allcarts:
+        totalamount += x.productid.price*x.qty
     if username.is_authenticated:
-        context = {'allcarts':allcarts, "username":username.id}
+        context = {'allcarts':allcarts, "username":username.id, 'totalitems':totalitems, 'totalamount':totalamount}
     else:
-        allcarts = Cart.objects.all()
-        context = {'allcarts':allcarts}
+        context = {'allcarts':allcarts, 'totalitems':totalitems, 'totalamount':totalamount}
     return render(req, 'showcarts.html', context)
 
 
@@ -360,3 +364,11 @@ def showaddress(req):
     else:
         return redirect('/signin')
     
+import razorpay  
+
+def payment(req):
+    client = razorpay.Client(auth=("rzp_test_wH0ggQnd7iT3nB", "eZseshY3oSsz2fcHZkTiSlCm"))
+
+    data = { "amount": 500, "currency": "INR", "receipt": "order_rcptid_11" }
+    payment = client.order.create(data=data) # Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    return render(req, 'payment.html')
