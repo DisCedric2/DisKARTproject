@@ -152,3 +152,12 @@ LOGOUT_REDIRECT_URL = "/"
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "688343948336-a5k3co2oi6j59a84k69ta5m1mherpegn.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+
+
+#Host mail
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "jhandub123456@gmail.com"
+EMAIL_HOST_PASSWORD = "gnlg nstd qlaj jvlo"
