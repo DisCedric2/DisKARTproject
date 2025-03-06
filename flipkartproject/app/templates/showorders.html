@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} DisKART | Orders {% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h2 class="text-center">My Orders</h2>
+        {% if allpayment %}
+        <table class="table table-border">
+            <thead>
+                <th>Sr. No.</th>
+                <th>Receipt ID</th>
+                <th>Order ID</th>
+                <th>Total Price</th>
+            </thead>
+
+            <tbody>
+                {% for x in allpayment %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{x.receiptid}}</td>
+                    <td>{{x.orderid.orderid}}</td>
+                    <td>{{x.totalprice}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+        <mark><h2 class="text-center">You have NO Orders Placed :( areu good bro?</h2></mark>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

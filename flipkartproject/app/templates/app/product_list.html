@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}DisKART | Registered Products {% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h2><a href="/ProductRegister">Register New Product -></a></h2>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                <th>Sr. No.</th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Update</th>
+                <th>Remove</th>
+            </thead>
+            <tbody>
+                {% for x in object_list %}
+                <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{x.productid}}</td>
+                <td>{{x.productname}}</td>  
+                <td>{{x.category}}</td>
+                <td>{{x.description}}</td>
+                <td>{{x.price}}</td>
+                <td>
+                    <img src="/media/{{x.images}}" alt="{{x.productname}}" width="100px" height="150px">
+                </td>
+                <td><a href="#">Update</a></td>
+                <td><a href="#">Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

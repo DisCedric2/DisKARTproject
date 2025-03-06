@@ -377,21 +377,22 @@ def payment(req):
             totalamount=sum(i.productid.price*i.qty for i in cartitems)
             print(totalamount)
             userid=req.user
-
-            client = razorpay.Client(auth=("rzp_test_wH0ggQnd7iT3nB", "eZseshY3oSsz2fcHZkTiSlCm"))
-            data = { "amount": totalamount*100, "currency": "INR", "receipt": "order_rcptid_11" }
-            payment = client.order.create(data=data) # Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            context={"data":payment,"amount":totalamount}
+            
 
             for items in cartitems:
-                orderid = random.randrange(20000,2000000000)
+                orderid = random.randrange(20000,20000000)
                 orderdata = Orders.objects.create(orderid=orderid, productid=items.productid, userid=userid, qty=items.qty)
                 orderdata.save()
                 
                 receiptid = random.randrange(2000000,2999999999)
-                paymentdata = Payment.objects.create(receiptid=orderid, orderid=orderdata, userid=userid, totalprice=totalamount)
+                paymentdata = Payment.objects.create(receiptid=receiptid, orderid=orderdata, userid=userid, totalprice=totalamount)
                 paymentdata.save()
             
+            client = razorpay.Client(auth=("rzp_test_wH0ggQnd7iT3nB", "eZseshY3oSsz2fcHZkTiSlCm"))
+            data = { "amount": totalamount*100, "currency": "INR", "receipt": str(receiptid) }
+            payment = client.order.create(data=data) # Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            context={"data":payment,"amount":totalamount}
+
             cartitems.delete()
 
             subject = f"DisKART payment status for your order={orderid}"
@@ -411,3 +412,30 @@ def payment(req):
             context["error"]="An error occured while creating payment. Please try again :("
     
     return render(req,'payment.html',context)
+
+
+def showorders(req):
+    if req.user.is_authenticated:
+        allpayment = Payment.objects.filter(userid=req.user).select_related("productid")
+        context = {'allpayment':allpayment}
+        return render(req, 'showorders.html', context)
+
+
+#seller CRUD operation        
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+
+class ProductRegister(CreateView):
+    model = Product
+    fields = "__all__"
+    success_url = '/'
+
+
+class ProductList(ListView):
+    model = Product
+    def get_queryset(self):
+        user = self.request.user #get logged-in user
+        return Product.objects.filter(userid=user) #Assume
+
+
+

@@ -20,11 +20,13 @@
                     "name": "FlipKartClone",
                     "description": "Test Transaction",
                     "image": "https://example.com/your_logo",
-                    // "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "order_id": "{{data.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                     "handler": function (response){
-                        alert(response.razorpay_payment_id);
-                        alert(response.razorpay_order_id);
-                        alert(response.razorpay_signature)
+                        // alert(response.razorpay_payment_id);
+                        alert("Receipt No.="+response.razorpay_order_id);
+                        // alert(response.razorpay_signature);
+                        alert("Payment Done Successfully :)");
+                        window.location.href = window.location.origin+'/showorders'
                     },
                     "prefill": {
                         "name": "Gaurav Kumar",
@@ -40,13 +42,16 @@
                 };
                 var rzp1 = new Razorpay(options);
                 rzp1.on('payment.failed', function (response){
-                        alert(response.error.code);
-                        alert(response.error.description);
-                        alert(response.error.source);
-                        alert(response.error.step);
-                        alert(response.error.reason);
-                        alert(response.error.metadata.order_id);
-                        alert(response.error.metadata.payment_id);
+                        // alert(response.error.code);
+                        // alert(response.error.description);
+                        // alert(response.error.source);
+                        // alert(response.error.step);
+                        // alert(response.error.reason);
+                        // alert(response.error.metadata.order_id);
+                        // alert(response.error.metadata.payment_id);
+                        alert("Transaction Cancelled :( TRY AGAIN !!");
+                        window.loca.href = window.location.origin+'/showcarts'
+                        
                 });
                 document.getElementById('rzp-button1').onclick = function(e){
                     rzp1.open();
