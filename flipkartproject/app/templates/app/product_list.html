@@ -29,9 +29,11 @@
                 <td>
                     <img src="/media/{{x.images}}" alt="{{x.productname}}" width="100px" height="150px">
                 </td>
-                <td><a href="#">Update</a></td>
-                <td><a href="#">Remove</a></td>
+                <td><a href="/ProductUpdate/{{x.pk}}">Update</a></td>
+                <td><a href="/ProductDelete/{{x.pk}}">Remove</a></td>
                 </tr>
+                {% empty %}
+                <mark><h3>No Product Added Yet What You Doing Bro:`)</h3></mark>
                 {% endfor %}
             </tbody>
         </table>

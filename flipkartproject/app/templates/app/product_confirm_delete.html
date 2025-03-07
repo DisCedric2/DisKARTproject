@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}DisKART | Delete Product {% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <form method="post">
+            {% csrf_token %}
+            <h3>Are You Sure Bro U Wanna Delete Name:{{object.productname}} <br> ID={{object.productname}}</h3>
+            <input type="submit" value="Confirm">
+        </form>
+        <a href="/ProductList"><input type="button" value="Cancel"></a>
+    </div>
+</div>
+{% endblock %}
