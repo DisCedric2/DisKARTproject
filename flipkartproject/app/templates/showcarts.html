@@ -39,7 +39,7 @@
                 <input type="number" value="{{x.qty}}" style="width: 30px;">
                 <a href="/updateqty/1/{{x.productid.productid}}"><button class="btn btn-success">+</button></a>
                 </p>
-                <a class="btn btn-warning" href="/addaddress">Make Payment</a>
+                <a class="btn btn-warning" href="/addaddress_single/{{x.productid.productid}}">Make Payment</a>
                 <a class="btn btn-primary" href="/removecart/{{x.productid.productid}}">Remove Cart</a>
             </div>
         </div>
@@ -58,7 +58,7 @@
                 <h5><strong>Total Amount = ₹{{totalamount}}/-</strong></h5>
 
                 {% if totalitems >= 1 %}
-                <a href="/addaddress"><button class="btn btn-danger">Make Total Payment</button></a>
+                <a href="/addaddress_all"><button class="btn btn-danger">Make Total Payment</button></a>
                 {% else %}
                 <a href="#"><button class="btn btn-danger" disabled>Make Payment</button></a>
                 {% endif %}
