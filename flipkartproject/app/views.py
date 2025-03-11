@@ -363,6 +363,16 @@ def addaddress_single(req, productid=None):
 
 def addaddress_all(req):
     if req.user.is_authenticated:
+        productid = None
+        if productid == None:
+            payment_type = "all"
+            req.session["payment_type"] = payment_type
+        else:
+            payment_type = "single"
+            req.session["payment_type"] = payment_type
+            req.session["productid"] = productid
+        print(payment_type)
+        
         if req.method=="POST":
             form = AddressForm(req.POST)
 
